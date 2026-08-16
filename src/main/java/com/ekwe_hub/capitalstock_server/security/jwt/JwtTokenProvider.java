@@ -21,7 +21,7 @@ public class JwtTokenProvider {
     private final long refreshTokenExpirationMs;
 
     public JwtTokenProvider(
-            @Value("${app.jwt.secret:veritastock_super_secret_jwt_key_that_is_at_least_256_bits_long_for_security}") String jwtSecret,
+            @Value("${app.jwt.secret:capitalstock_super_secret_jwt_key_that_is_at_least_256_bits_long_for_security}") String jwtSecret,
             @Value("${app.jwt.expiration-ms:86400000}") long jwtExpirationMs, // 24 hours
             @Value("${app.jwt.refresh-expiration-ms:604800000}") long refreshTokenExpirationMs // 7 days
     ) {

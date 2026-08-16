@@ -45,8 +45,8 @@ class AuthControllerTest {
 
     @Test
     void shouldLoginSuccessfully() throws Exception {
-        LoginRequest request = new LoginRequest("admin@veritastock.com", "password123");
-        AuthResponse response = new AuthResponse("access_jwt_token", "refresh_jwt_token", "admin@veritastock.com", "ROLE_SYSTEM_ADMIN");
+        LoginRequest request = new LoginRequest("admin@capitalstock.com", "password123");
+        AuthResponse response = new AuthResponse("access_jwt_token", "refresh_jwt_token", "admin@capitalstock.com", "ROLE_SYSTEM_ADMIN");
 
         when(authService.login(any())).thenReturn(response);
 
@@ -59,17 +59,17 @@ class AuthControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "admin@veritastock.com")
+    @WithMockUser(username = "admin@capitalstock.com")
     void shouldReturnCurrentUserProfile() throws Exception {
         UserProfileResponse profile = new UserProfileResponse(
-                UUID.randomUUID(), "admin@veritastock.com", "Root Admin", null, List.of("ROLE_SYSTEM_ADMIN"), "ACTIVE"
+                UUID.randomUUID(), "admin@capitalstock.com", "Root Admin", null, List.of("ROLE_SYSTEM_ADMIN"), "ACTIVE"
         );
 
-        when(authService.getCurrentUserProfile("admin@veritastock.com")).thenReturn(profile);
+        when(authService.getCurrentUserProfile("admin@capitalstock.com")).thenReturn(profile);
 
         mockMvc.perform(get("/api/auth/me"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.email").value("admin@veritastock.com"))
+                .andExpect(jsonPath("$.email").value("admin@capitalstock.com"))
                 .andExpect(jsonPath("$.roles[0]").value("ROLE_SYSTEM_ADMIN"));
     }
 }

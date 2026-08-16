@@ -1,4 +1,4 @@
--- Veritastock Initial Database Migration Schema
+-- CapitalStock Complete Database Migration Schema
 CREATE TABLE system_admins (
     id UUID PRIMARY KEY,
     full_name VARCHAR(255) NOT NULL,
@@ -15,7 +15,6 @@ CREATE TABLE merchants (
     email VARCHAR(255) UNIQUE NOT NULL,
     business_phone VARCHAR(50),
     registration_number_rc_number VARCHAR(100),
-    paystack_subaccount_code VARCHAR(100),
     flutterwave_subaccount_code VARCHAR(100),
     status VARCHAR(50) NOT NULL DEFAULT 'ACTIVE',
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP

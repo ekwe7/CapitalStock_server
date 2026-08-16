@@ -53,10 +53,10 @@ class SystemAdminControllerTest {
     @WithMockUser(authorities = "ROLE_SYSTEM_ADMIN")
     void shouldCreateSystemAdmin() throws Exception {
         CreateSystemAdminRequest request = new CreateSystemAdminRequest(
-                "Super Admin", "admin@veritastock.com", "password123", SystemAdmin.AdminRole.SUPER_ADMIN
+                "Super Admin", "admin@capitalstock.com", "password123", SystemAdmin.AdminRole.SUPER_ADMIN
         );
         SystemAdminResponse response = new SystemAdminResponse(
-                UUID.randomUUID(), "Super Admin", "admin@veritastock.com", SystemAdmin.AdminRole.SUPER_ADMIN, SystemAdmin.AdminStatus.ACTIVE, LocalDateTime.now()
+                UUID.randomUUID(), "Super Admin", "admin@capitalstock.com", SystemAdmin.AdminRole.SUPER_ADMIN, SystemAdmin.AdminStatus.ACTIVE, LocalDateTime.now()
         );
 
         when(systemAdminService.createSystemAdmin(any())).thenReturn(response);
@@ -65,7 +65,7 @@ class SystemAdminControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.email").value("admin@veritastock.com"));
+                .andExpect(jsonPath("$.email").value("admin@capitalstock.com"));
     }
 
     @Test

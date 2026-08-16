@@ -30,9 +30,6 @@ public class Merchant {
     @Column(name = "registration_number_rc_number")
     private String registrationNumberRcNumber;
 
-    @Column(name = "paystack_subaccount_code")
-    private String paystackSubaccountCode;
-
     @Column(name = "flutterwave_subaccount_code")
     private String flutterwaveSubaccountCode;
 

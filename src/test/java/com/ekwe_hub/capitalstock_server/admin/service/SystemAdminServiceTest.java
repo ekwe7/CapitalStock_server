@@ -63,7 +63,7 @@ class SystemAdminServiceTest {
         admin = SystemAdmin.builder()
                 .id(UUID.randomUUID())
                 .fullName("Root Admin")
-                .email("admin@veritastock.com")
+                .email("admin@capitalstock.com")
                 .passwordHash("secret123")
                 .role(SystemAdmin.AdminRole.SUPER_ADMIN)
                 .status(SystemAdmin.AdminStatus.ACTIVE)
@@ -81,7 +81,7 @@ class SystemAdminServiceTest {
     @Test
     void shouldCreateSystemAdminSuccessfully() {
         CreateSystemAdminRequest request = new CreateSystemAdminRequest(
-                "Root Admin", "admin@veritastock.com", "secret123", SystemAdmin.AdminRole.SUPER_ADMIN
+                "Root Admin", "admin@capitalstock.com", "secret123", SystemAdmin.AdminRole.SUPER_ADMIN
         );
 
         when(systemAdminRepository.existsByEmail(request.email())).thenReturn(false);
@@ -90,7 +90,7 @@ class SystemAdminServiceTest {
         SystemAdminResponse response = systemAdminService.createSystemAdmin(request);
 
         assertNotNull(response);
-        assertEquals("admin@veritastock.com", response.email());
+        assertEquals("admin@capitalstock.com", response.email());
         assertEquals(SystemAdmin.AdminRole.SUPER_ADMIN, response.role());
     }
 

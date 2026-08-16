@@ -1,4 +1,4 @@
-# 📄 Veritastock: Verified Inventory Ledger & Trade Finance Engine
+# 📄 CapitalStock: Verified Inventory Ledger & Trade Finance Engine
 
 > **Financial Infrastructure for Retailers** — Turning physical retail stock into verified, bankable financial assets using double-blind barcode verification, immutable SHA-256 cryptographic audit chaining, and event-driven trade finance architecture.
 
@@ -12,7 +12,7 @@
 * **Online Credit Default:** Granting goods on credit to unvetted buyers without 100% upfront payment leads to immediate fraud and severe default rates.
 
 ### The Solution
-Veritastock bridges the gap between physical retail operations and institutional lenders:
+CapitalStock bridges the gap between physical retail operations and institutional lenders:
 1. **Double-Blind Supplier Verification:** Stock is flagged as `VERIFIED_SUPPLIER_STOCK` only when incoming physical barcode scans match the supplier's digital invoice manifest 100%.
 2. **Immutable Cryptographic Ledger:** Every inventory movement (restock, POS checkout, layaway hold) generates a sequential SHA-256 cryptographic block linked to the previous block signature. Any manual database tampering breaks the hash chain instantly and triggers credit freeze alerts.
 3. **Safe Retail Operations (Phase 1 MVP):** In-store POS transactions and zero-risk online **Layaway** (goods released strictly upon 100% payment completion).
@@ -22,7 +22,7 @@ Veritastock bridges the gap between physical retail operations and institutional
 
 ## 2. System Architecture: Event-Driven Modular Monolith
 
-Veritastock is designed as an **Event-Driven Modular Monolith** built on **Java 21**, **Spring Boot 3.3+**, and **PostgreSQL**. Modules do not perform direct cross-database queries or synchronous cross-boundary calls; they communicate asynchronously through Spring Domain Events.
+CapitalStock is designed as an **Event-Driven Modular Monolith** built on **Java 21**, **Spring Boot 3.3+**, and **PostgreSQL**. Modules do not perform direct cross-database queries or synchronous cross-boundary calls; they communicate asynchronously through Spring Domain Events.
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────────────┐
@@ -53,7 +53,7 @@ Veritastock is designed as an **Event-Driven Modular Monolith** built on **Java 
 | `procurement` | Supplier registration, electronic invoice manifests, double-blind physical barcode scanning & reconciliation. |
 | `inventory` | Product catalog, stock allocation, atomic 15-minute cart holds, and stock status gating (`UNVERIFIED_MANUAL` vs `VERIFIED_SUPPLIER_STOCK`). |
 | `sales` | In-store counter POS checkouts, online store orders, and zero-risk Layaway installment plans. |
-| `payment` | Payment gateway integration (Paystack/Flutterwave), webhook verification, receipt generation, and payment ledger events. |
+| `payment` | Payment gateway integration (Flutterwave), webhook verification, receipt generation, and payment ledger events. |
 | `ledger` | Listens to stock events (`@TransactionalEventListener`) and appends immutable, sequential SHA-256 signed blocks per merchant. |
 
 ---

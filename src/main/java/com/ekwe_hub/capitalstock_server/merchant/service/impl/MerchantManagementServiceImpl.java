@@ -70,9 +70,6 @@ public class MerchantManagementServiceImpl implements MerchantManagementService 
         Merchant merchant = merchantRepository.findById(merchantId)
                 .orElseThrow(() -> new IllegalArgumentException("Merchant business record not found for ID: " + merchantId));
 
-        if (request.paystackSubaccountCode() != null) {
-            merchant.setPaystackSubaccountCode(request.paystackSubaccountCode());
-        }
         if (request.flutterwaveSubaccountCode() != null) {
             merchant.setFlutterwaveSubaccountCode(request.flutterwaveSubaccountCode());
         }
