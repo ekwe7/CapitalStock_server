@@ -14,6 +14,9 @@ CREATE TABLE merchants (
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     business_phone VARCHAR(50),
+    registration_number_rc_number VARCHAR(100),
+    paystack_subaccount_code VARCHAR(100),
+    flutterwave_subaccount_code VARCHAR(100),
     status VARCHAR(50) NOT NULL DEFAULT 'ACTIVE',
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -39,6 +42,16 @@ CREATE TABLE user_roles (
     PRIMARY KEY (user_id, role_id)
 );
 
+CREATE TABLE staff_invitations (
+    id UUID PRIMARY KEY,
+    merchant_id UUID NOT NULL REFERENCES merchants(id),
+    staff_email VARCHAR(255) NOT NULL,
+    staff_full_name VARCHAR(255) NOT NULL,
+    assigned_role VARCHAR(50) NOT NULL,
+    invitation_status VARCHAR(50) NOT NULL DEFAULT 'PENDING',
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE suppliers (
     id UUID PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -48,15 +61,28 @@ CREATE TABLE suppliers (
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE categories (
+    id UUID PRIMARY KEY,
+    merchant_id UUID NOT NULL REFERENCES merchants(id),
+    category_name VARCHAR(255) NOT NULL,
+    category_description TEXT,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT uq_merchant_category_name UNIQUE (merchant_id, category_name)
+);
+
 CREATE TABLE products (
     id UUID PRIMARY KEY,
     merchant_id UUID NOT NULL REFERENCES merchants(id),
+    category_id UUID REFERENCES categories(id),
     barcode VARCHAR(255) NOT NULL,
     name VARCHAR(255) NOT NULL,
     sku VARCHAR(100),
-    price NUMERIC(15, 2) NOT NULL,
+    cost_price NUMERIC(15, 2) NOT NULL DEFAULT 0.00,
+    selling_price NUMERIC(15, 2) NOT NULL DEFAULT 0.00,
+    price NUMERIC(15, 2) NOT NULL DEFAULT 0.00,
     available_quantity INT NOT NULL DEFAULT 0,
     reserved_quantity INT NOT NULL DEFAULT 0,
+    advance_rate_percentage NUMERIC(5, 2) NOT NULL DEFAULT 0.00,
     verification_status VARCHAR(50) NOT NULL DEFAULT 'UNVERIFIED_MANUAL',
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT uq_merchant_barcode UNIQUE (merchant_id, barcode)

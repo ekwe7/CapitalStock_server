@@ -27,6 +27,15 @@ public class Merchant {
     @Column(name = "business_phone")
     private String businessPhone;
 
+    @Column(name = "registration_number_rc_number")
+    private String registrationNumberRcNumber;
+
+    @Column(name = "paystack_subaccount_code")
+    private String paystackSubaccountCode;
+
+    @Column(name = "flutterwave_subaccount_code")
+    private String flutterwaveSubaccountCode;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     @Builder.Default
