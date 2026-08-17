@@ -2,6 +2,7 @@ package com.ekwe_hub.capitalstock_server.ledger.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -28,9 +29,9 @@ public class AuditBreachAlert {
     private Long sequenceNumber;
 
     @Column(name = "alert_type", nullable = false)
-    private String alertType; // e.g. "TAMPER_DETECTED", "HASH_MISMATCH", "UNVERIFIED_QUANTITY"
+    private String alertType;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
     @Column(nullable = false)

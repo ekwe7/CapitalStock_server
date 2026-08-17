@@ -9,6 +9,7 @@ import java.util.UUID;
 
 @Repository
 public interface AuditBreachAlertRepository extends JpaRepository<AuditBreachAlert, UUID> {
+    List<AuditBreachAlert> findByMerchantIdOrderByCreatedAtDesc(UUID merchantId);
+    List<AuditBreachAlert> findByMerchantIdAndResolved(UUID merchantId, Boolean resolved);
     List<AuditBreachAlert> findByResolvedFalse();
-    long countByResolvedFalse();
 }
